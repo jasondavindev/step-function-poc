@@ -1,10 +1,34 @@
 {
   "Comment": "State Machine to calculate square root",
-  "StartAt": "CreateMatches",
+  "StartAt": "Start",
   "States": {
-    "CreateMatches": {
+    "Start": {
       "Type": "Task",
       "Resource": "arn:aws:lambda:us-east-1:000000000000:function:SquareFunction",
+      "Next": "Decision"
+    },
+    "Decision": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.square",
+          "NumericGreaterThan": 25,
+          "Next": "PrintObject"
+        },
+        {
+          "Variable": "$.square",
+          "NumericLessThanEquals": 25,
+          "Next": "PrintSquare"
+        }
+      ]
+    },
+    "PrintObject": {
+      "Type": "Pass",
+      "End": true
+    },
+    "PrintSquare": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:000000000000:function:TestFunction",
       "End": true
     }
   }
