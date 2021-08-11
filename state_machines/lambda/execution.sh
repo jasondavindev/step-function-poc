@@ -1,3 +1,5 @@
+[ -z "$RESTART" -o -z "$1" ] && echo "Usage: execution.sh [RANDOM NUMBER] [RESTART OPTION - 0/1]" && exit 1
+
 set -x
 
 RESTART=$2
