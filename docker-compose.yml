@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   localstack:
+    container_name: localstack
     image: localstack/localstack
     environment:
       - DATA_DIR=/tmp/localstack/data
@@ -10,6 +11,7 @@ services:
       - LAMBDA_EXECUTOR=docker
     ports:
       - "4574:4574"
+      - "4566:4566"
     volumes:
       - /tmp/localstack:/tmp/localstack
       - /var/run/docker.sock:/var/run/docker.sock
@@ -18,8 +20,6 @@ services:
     container_name: stepfunctions
     image: amazon/aws-stepfunctions-local:latest
     environment:
-      - LAMBDA_ENDPOINT=http://localstack:4574
+      - LAMBDA_ENDPOINT=http://localstack:4566
     ports:
       - "8083:8083"
-    volumes:
-      - ./functions:/functions
