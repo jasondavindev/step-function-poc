@@ -1,5 +1,5 @@
-const handle = ({ square }, __, callback) => {
-  callback(null, { text: `Received ${square} as square` });
+const handler = ({ square }, __, callback) => {
+  callback(null, { text: `Received ${square} as square`, numberParam: square });
 };
 
-exports.handle = handle;
+exports.handler = handler;
